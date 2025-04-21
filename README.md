@@ -121,12 +121,6 @@ pip and venv (usually included with Python)
 ```bash
 git clone <your-repo-url>
 cd <your-repo-name>
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
 ```
 
 
@@ -170,9 +164,6 @@ npm install
 # Add the backend API URL:
 # VITE_API_URL=http://localhost:8000
 ```
-**(Note:** I commented out the VITE_API_URL line example above as it's an instruction *about* the file, not a command to run directly in the terminal. You could explain this in text before the code block).*
-
-**Also correct the other code blocks similarly:**
 
 ```markdown
 **▶️ Running the Application**
@@ -195,41 +186,7 @@ npm install
     *   Vite will output the URL where the frontend is running (usually `http://localhost:5173`). Open this URL in your browser.
 ```
 
-▶️ Running the Application
 
-Start the Backend Server:
-
-Open a terminal in the backend directory.
-
-Activate the virtual environment (source venv/bin/activate or .\venv\Scripts\activate).
-
-Run Uvicorn:
-
-uvicorn main:app --reload --port 8000
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-
-The backend API should now be running at http://localhost:8000. You can test it by visiting http://localhost:8000/health in your browser (should show {"status":"ok"}).
-
-Start the Frontend Development Server:
-
-Open a separate terminal in the frontend directory.
-
-Run the Vite development server:
-
-npm run dev
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-
-Vite will output the URL where the frontend is running (usually http://localhost:5173). Open this URL in your browser.
 
 Using the Demo:
 
