@@ -23,3 +23,6 @@ __pycache__/
 *.tar.lz4c
 *.tar.lz4f
 *.tar.lzop2
+.idx
+*.nix
+.vscode
