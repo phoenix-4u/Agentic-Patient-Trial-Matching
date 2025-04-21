@@ -70,8 +70,6 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 
 ## 🏗️ Architecture Overview
 
-*(Note: Simplified node text due to persistent GitHub rendering issues)*
-
 
 ```mermaid
 graph LR
@@ -108,8 +106,6 @@ graph LR
     B -- HTTP Response --> A
 ```
 
-(Based on the high-level design discussion)
-
 
 ## ⚙️ Setup & Installation
 
@@ -132,8 +128,11 @@ Use code with caution.
 Bash
 IGNORE_WHEN_COPYING_END
 
-2. Backend Setup:
 
+```markdown
+**2. Backend Setup:**
+
+```bash
 # Navigate to the backend directory
 cd backend
 
@@ -152,15 +151,11 @@ pip install -r requirements.txt
 
 # Deactivate virtual environment when done (optional)
 # deactivate
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
+```
 
-3. Frontend Setup:
+**3. Frontend Setup:**
 
+```bash
 # Navigate back to the root and then to the frontend directory
 # (Assuming you are in the 'backend' directory from the previous step)
 cd ../frontend
@@ -173,13 +168,33 @@ npm install
 # Configure Environment Variables
 # Create a .env file in the 'frontend' directory
 # Add the backend API URL:
-VITE_API_URL=http://localhost:8000
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
+# VITE_API_URL=http://localhost:8000
+```
+**(Note:** I commented out the VITE_API_URL line example above as it's an instruction *about* the file, not a command to run directly in the terminal. You could explain this in text before the code block).*
+
+**Also correct the other code blocks similarly:**
+
+```markdown
+**▶️ Running the Application**
+
+1.  **Start the Backend Server:**
+    *   Open a terminal in the `backend` directory.
+    *   Activate the virtual environment (`source venv/bin/activate` or `.\venv\Scripts\activate`).
+    *   Run Uvicorn:
+        ```bash
+        uvicorn main:app --reload --port 8000
+        ```
+    *   The backend API should now be running at `http://localhost:8000`. You can test it by visiting `http://localhost:8000/health` in your browser (should show `{"status":"ok"}`).
+
+2.  **Start the Frontend Development Server:**
+    *   Open a *separate* terminal in the `frontend` directory.
+    *   Run the Vite development server:
+        ```bash
+        npm run dev
+        ```
+    *   Vite will output the URL where the frontend is running (usually `http://localhost:5173`). Open this URL in your browser.
+```
+
 ▶️ Running the Application
 
 Start the Backend Server:
