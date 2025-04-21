@@ -70,18 +70,18 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 
 ## 🏗️ Architecture Overview
 
-*(Note: Subgraph groupings removed due to persistent GitHub rendering issues)*
+*(Note: Simplified node text due to persistent GitHub rendering issues)*
 
 
 ```mermaid
 graph LR
-    %% Define ALL Nodes (No subgraphs)
-    A["React Frontend - MUI/Vite"]
+    %% Define ALL Nodes (Simplified Text)
+    A[React Frontend]
     B[API Gateway]
     C[Orchestrator]
-    D[Patient Data Agent (Mock)]
-    E[Trial Discovery Agent (Mock)]
-    F[Matching Agent (Langchain - Mock)]
+    D[Patient Data Agent Mock]
+    E[Trial Discovery Agent Mock]
+    F[Matching Agent Langchain Mock]
     G[Mock EHR Data]
     H[Mock Trial Database]
     I[LLM API]
