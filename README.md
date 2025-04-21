@@ -165,7 +165,6 @@ npm install
 # VITE_API_URL=http://localhost:8000
 ```
 
-```markdown
 **▶️ Running the Application**
 
 1.  **Start the Backend Server:**
@@ -184,116 +183,96 @@ npm install
         npm run dev
         ```
     *   Vite will output the URL where the frontend is running (usually `http://localhost:5173`). Open this URL in your browser.
-```
 
-
-
-Using the Demo:
-
-Enter one of the mock patient IDs (e.g., PATIENT_001, PATIENT_002, PATIENT_NO_MATCH, PATIENT_ERROR) into the input field.
-
-Click the "Search" button.
-
-Observe the loading state and the results displayed.
-
-🔌 API Endpoint
+**🔌 API Endpoint**
 
 The primary backend endpoint used by the frontend:
 
-POST /api/v1/trials/find
+*   **`POST /api/v1/trials/find`**
+    *   **Request Body:**
+        ```json
+        {
+          "patientId": "string (e.g., PATIENT_001)"
+        }
+        ```
+    *   **Success Response (200 OK):** Returns ranked matches or a 'no matches found' status.
 
-Request Body:
+        *Example with matches:*
+        ```json
+        {
+          "status": "success",
+          "matches": [
+            {
+              "trialId": "NCT...",
+              "title": "...",
+              "status": "Recruiting",
+              "phase": "...",
+              "condition": "...",
+              "locations": [],
+              "matchRationale": ["...", "..."],
+              "flags": ["..."],
+              "detailsUrl": "...",
+              "contactInfo": "..."
+            }
+          ],
+          "searchTimestamp": "iso_timestamp"
+        }
+        ```
+        *Example with no matches:*
+        ```json
+        {
+          "status": "no_matches_found",
+          "matches": [],
+          "message": "No suitable recruiting trials found...",
+          "searchTimestamp": "iso_timestamp"
+        }
+        ```
+    *   **Error Responses:** `404 Not Found` (Patient ID invalid), `500 Internal Server Error`.
 
-{
-  "patientId": "string (e.g., PATIENT_001)"
-}
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Json
-IGNORE_WHEN_COPYING_END
+---
 
-Success Response (200 OK): Returns ranked matches or a 'no matches found' status.
+**🔧 Configuration**
 
-// Example with matches
-{
-  "status": "success",
-  "matches": [
-    {
-      "trialId": "NCT...", "title": "...", "status": "Recruiting",
-      "phase": "...", "condition": "...", "locations": [],
-      "matchRationale": ["...", "..."], "flags": ["..."],
-      "detailsUrl": "...", "contactInfo": "..."
-    }
-  ],
-  "searchTimestamp": "iso_timestamp"
-}
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Json
-IGNORE_WHEN_COPYING_END
-// Example with no matches
-{
-  "status": "no_matches_found",
-  "matches": [],
-  "message": "No suitable recruiting trials found...",
-  "searchTimestamp": "iso_timestamp"
-}
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Json
-IGNORE_WHEN_COPYING_END
+*   **Backend (`backend/.env`):** Primarily for API keys if using real LLMs (e.g., `OPENAI_API_KEY`). Not strictly required for the current mock setup.
+*   **Frontend (`frontend/.env`):**
+    *   `VITE_API_URL`: The URL where the backend FastAPI server is running (defaults to `http://localhost:8000` in the code if not set).
 
-Error Responses: 404 Not Found (Patient ID invalid), 500 Internal Server Error.
+---
 
-🔧 Configuration
+**🔮 Future Work / Roadmap**
 
-Backend (backend/.env): Primarily for API keys if using real LLMs (e.g., OPENAI_API_KEY). Not strictly required for the current mock setup.
+*   [ ] **Real EHR Integration:** Replace mock data fetching with secure, compliant integration with a real (or sandbox) EHR system.
+*   [ ] **Real LLM Agents:** Implement the full Langchain agent logic in `services.py` using actual LLM calls, robust prompt engineering, and response parsing.
+*   [ ] **Real Trial Data:** Integrate directly with the live ClinicalTrials.gov API (or other sources) instead of mock data.
+*   [ ] **Advanced Filtering:** Add UI options for filtering trials by location, phase, specific criteria, etc.
+*   [ ] **Vector Database:** Implement semantic search for criteria matching using vector embeddings for improved accuracy.
+*   [ ] **Proactive Matching:** Trigger searches automatically based on new patient data or diagnoses.
+*   [ ] **Authentication & Authorization:** Implement proper user login and access control.
+*   [ ] **Enhanced UI/UX:** Add features like result saving, comparison views, more detailed loading states.
+*   [ ] **Testing:** Add unit, integration, and end-to-end tests.
 
-Frontend (frontend/.env):
+---
 
-VITE_API_URL: The URL where the backend FastAPI server is running (defaults to http://localhost:8000 in the code if not set).
-
-🔮 Future Work / Roadmap
-
-Real EHR Integration: Replace mock data fetching with secure, compliant integration with a real (or sandbox) EHR system.
-
-Real LLM Agents: Implement the full Langchain agent logic in services.py using actual LLM calls, robust prompt engineering, and response parsing.
-
-Real Trial Data: Integrate directly with the live ClinicalTrials.gov API (or other sources) instead of mock data.
-
-Advanced Filtering: Add UI options for filtering trials by location, phase, specific criteria, etc.
-
-Vector Database: Implement semantic search for criteria matching using vector embeddings for improved accuracy.
-
-Proactive Matching: Trigger searches automatically based on new patient data or diagnoses.
-
-Authentication & Authorization: Implement proper user login and access control.
-
-Enhanced UI/UX: Add features like result saving, comparison views, more detailed loading states.
-
-Testing: Add unit, integration, and end-to-end tests.
-
-⚠️ Disclaimer
+**⚠️ Disclaimer**
 
 This is a demonstration project.
+*   It uses **mock patient and trial data**. No real Protected Health Information (PHI) is used or stored.
+*   The AI agent logic is currently **simulated/mocked** in the backend (`services.py`) for ease of setup and demonstration. Integrating real LLMs and data sources requires significant additional development, security considerations, and API keys.
+*   This tool is **not intended for real clinical use** in its current state.
 
-It uses mock patient and trial data. No real Protected Health Information (PHI) is used or stored.
+---
 
-The AI agent logic is currently simulated/mocked in the backend (services.py) for ease of setup and demonstration. Integrating real LLMs and data sources requires significant additional development, security considerations, and API keys.
+**📄 License**
 
-This tool is not intended for real clinical use in its current state.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details. (You'll need to create a LICENSE.md file with the MIT license text).
 
-📄 License
+---
 
-This project is licensed under the MIT License - see the LICENSE file for details. (You'll need to create a LICENSE.md file with the MIT license text).
+*Happy Coding!* ✨
 
-Happy Coding! ✨
+---
+
+*(Optional Section - Remove or keep as needed)*
 
 **Before Committing:**
 
@@ -302,8 +281,5 @@ Happy Coding! ✨
 3.  **Review Placeholders:** Make sure you replaced `<your-repo-url>` and `<your-repo-name>` if needed.
 4.  **Verify Commands:** Double-check the setup and run commands match your project structure exactly.
 5.  **Push to GitHub:** Add, commit, and push the `README.md`, `LICENSE.md`, and `docs` folder (with the GIF) to your repository.
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-IGNORE_WHEN_COPYING_END
+
+
