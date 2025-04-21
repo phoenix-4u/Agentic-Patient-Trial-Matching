@@ -71,40 +71,44 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 ## 🏗️ Architecture Overview
 
 
+## 🏗️ Architecture Overview
+
+
 ```mermaid
 graph LR
-    %% Define Nodes within Subgraphs first
+    %% Subgraph definition for the Frontend
     subgraph "User Browser"
-        A[React Frontend (MUI/Vite)]
-    end
+        A[React Frontend (MUI/Vite)]; %% Node definition
+    end %% End of User Browser subgraph
 
+    %% Subgraph definition for the Backend
     subgraph "Backend Service (Python/FastAPI)"
-        B[API Gateway]
-        C[Orchestrator]
-        D[Patient Data Agent (Mock)]
-        E[Trial Discovery Agent (Mock)]
-        F[Matching Agent (Langchain - Mock)]
-    end
+        B[API Gateway];
+        C[Orchestrator];
+        D[Patient Data Agent (Mock)];
+        E[Trial Discovery Agent (Mock)];
+        F[Matching Agent (Langchain - Mock)];
+    end %% End of Backend Service subgraph
 
+    %% Subgraph definition for External Systems
     subgraph "External Systems (Conceptual/Mocked)"
-        G[Mock EHR Data]
-        H[Mock Trial Database]
-        I[LLM API]
-    end
+        G[Mock EHR Data];
+        H[Mock Trial Database];
+        I[LLM API];
+    end %% End of External Systems subgraph
 
-    %% Define Links between nodes AFTER all subgraphs are defined
-    A -- HTTP API Call --> B
-    B -- Orchestrates --> C
-    C -- Calls --> D
-    C -- Calls --> E
-    C -- Calls --> F
-    D -- Reads --> G
-    E -- Reads --> H
-    F -- Interacts --> I
-    F -- Returns Results --> C
-    C -- Formats --> B
-    B -- HTTP Response --> A
-```
+    %% Define ALL links AFTER ALL subgraphs are closed
+    A -- HTTP API Call --> B;
+    B -- Orchestrates --> C;
+    C -- Calls --> D;
+    C -- Calls --> E;
+    C -- Calls --> F;
+    D -- Reads --> G;
+    E -- Reads --> H;
+    F -- Interacts --> I;
+    F -- Returns Results --> C;
+    C -- Formats --> B;
+    B -- HTTP Response --> A;
 
 (Based on the high-level design discussion)
 
