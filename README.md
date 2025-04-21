@@ -98,10 +98,12 @@ graph LR
     F -- Returns Results --> C
     C -- Formats --> B
     B -- HTTP Response --> A
+```
 
-(Based on the high-level design discussion)
+(Based on the high-level design discussion) <-- Move this text *after* the closing fence -->
 
-⚙️ Setup & Installation
+
+## ⚙️ Setup & Installation
 
 Prerequisites:
 
