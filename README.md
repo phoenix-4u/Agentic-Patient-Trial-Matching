@@ -118,7 +118,7 @@ Python (v3.9 or later recommended)
 pip and venv (usually included with Python)
 
 1. Clone the Repository:
-
+```bash
 git clone <your-repo-url>
 cd <your-repo-name>
 IGNORE_WHEN_COPYING_START
@@ -127,9 +127,9 @@ download
 Use code with caution.
 Bash
 IGNORE_WHEN_COPYING_END
+```
 
 
-```markdown
 **2. Backend Setup:**
 
 ```bash
