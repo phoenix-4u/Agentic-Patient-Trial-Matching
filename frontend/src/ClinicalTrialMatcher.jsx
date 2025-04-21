@@ -17,18 +17,17 @@ import SearchIcon from '@mui/icons-material/Search';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import LocationOnIcon from '@mui/icons-material/LocationOn'; // Example icon
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone'; // Example icon
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 
-// Use Vite's way to get environment variables
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 function ClinicalTrialMatcher() {
   const [patientId, setPatientId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [results, setResults] = useState(null); // Store array of matches
-  const [error, setError] = useState(null); // Store error message string
-  const [message, setMessage] = useState(null); // Store 'no matches' message
+  const [results, setResults] = useState(null);
+  const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,7 +42,6 @@ function ClinicalTrialMatcher() {
     setError(null);
     setResults(null);
     setMessage(null);
-    console.log('Fetching from:', API_URL); // Keep this for debugging
 
     try {
       const response = await fetch(`${API_URL}/api/v1/trials/find`, {
@@ -57,7 +55,7 @@ function ClinicalTrialMatcher() {
         try {
           const errorData = await response.json();
           errorDetail = errorData.detail || errorDetail;
-        } catch (parseError) { /* Ignore */ }
+        } catch (parseError) {}
         throw new Error(errorDetail);
       }
 
@@ -75,7 +73,6 @@ function ClinicalTrialMatcher() {
         throw new Error(data.message || 'Received an unexpected status from server.');
       }
     } catch (err) {
-      console.error("API call failed:", err);
       setError(err.message || 'Failed to fetch trial data. Check connection or contact support.');
     } finally {
       setIsLoading(false);
@@ -83,131 +80,214 @@ function ClinicalTrialMatcher() {
   };
 
   return (
-    <Box sx={{ my: 2 }}> {/* Add some vertical margin */}
-      <Typography variant="h5" component="h2" gutterBottom>
-        Find Clinical Trials
-      </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 3 }} // Use gap for spacing
-      >
-        <TextField
-          label="Patient ID"
-          variant="outlined"
-          value={patientId}
-          onChange={(e) => setPatientId(e.target.value)}
-          disabled={isLoading}
-          fullWidth // Take available width
-          size="small" // Slightly smaller input
-          placeholder="e.g., PATIENT_001"
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          disabled={isLoading}
-          startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : <SearchIcon />}
-          sx={{ minWidth: 120 }} // Ensure button doesn't shrink too much
+    <Card 
+      sx={{ 
+        width: '100%',
+        borderRadius: 2,
+        bgcolor: 'background.paper',
+        boxShadow: (theme) => theme.shadows[3],
+        overflow: 'hidden'
+      }}
+    >
+      <CardContent sx={{ p: 4 }}>
+        <Typography 
+          variant="h4" 
+          component="h1" 
+          gutterBottom 
+          align="center"
+          sx={{
+            mb: 4,
+            fontWeight: 600,
+            background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
+          }}
         >
-          {isLoading ? 'Searching...' : 'Search'}
-        </Button>
-      </Box>
-
-      {/* --- Status Messages --- */}
-      {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {error}
-        </Alert>
-      )}
-      {message && (
-         <Alert severity="info" sx={{ mb: 2 }}>
-          {message}
-        </Alert>
-      )}
-      {isLoading && !error && !message && ( // Show spinner only when actively loading initial results
-        <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
-            <CircularProgress />
+          Clinical Trial Matcher
+        </Typography>
+        
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: 3,
+            alignItems: 'center',
+            mb: 4
+          }}
+        >
+          <TextField
+            label="Patient ID"
+            variant="outlined"
+            value={patientId}
+            onChange={(e) => setPatientId(e.target.value)}
+            disabled={isLoading}
+            fullWidth
+            placeholder="e.g., PATIENT_001"
+            sx={{ maxWidth: 400 }}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={isLoading}
+            startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : <SearchIcon />}
+            sx={{ 
+              minWidth: 160,
+              height: 48,
+              borderRadius: 2,
+              textTransform: 'none',
+              fontSize: '1rem'
+            }}
+          >
+            {isLoading ? 'Searching...' : 'Search Trials'}
+          </Button>
         </Box>
-      )}
 
+        {error && (
+          <Alert 
+            severity="error" 
+            sx={{ 
+              mb: 3,
+              borderRadius: 2
+            }}
+          >
+            {error}
+          </Alert>
+        )}
+        {message && (
+          <Alert 
+            severity="info"
+            sx={{ 
+              mb: 3,
+              borderRadius: 2
+            }}
+          >
+            {message}
+          </Alert>
+        )}
+        {isLoading && !error && !message && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+            <CircularProgress size={40} />
+          </Box>
+        )}
 
-      {/* --- Results --- */}
-      {results && results.length > 0 && (
-        <Box sx={{ mt: 3 }}>
-          <Typography variant="h6" component="h3" gutterBottom>
-            Potential Matches:
-          </Typography>
-          <List sx={{ p: 0 }}> {/* Remove default padding */}
-            {results.map((trial) => (
-              <Card key={trial.trialId} sx={{ mb: 2 }} variant="outlined">
-                <CardContent>
-                  <Typography variant="h6" component="div" gutterBottom>
-                    {trial.title} ({trial.trialId})
-                  </Typography>
-
-                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 1 }}>
-                     <Chip label={trial.status} color={trial.status === 'Recruiting' ? 'success' : 'default'} size="small" />
-                     <Chip label={`Phase: ${trial.phase}`} variant="outlined" size="small" />
-                     <Chip label={`Condition: ${trial.condition}`} variant="outlined" size="small" />
-                  </Box>
-
-                  {trial.locations && trial.locations.length > 0 && (
-                    <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}>
+        {results && results.length > 0 && (
+          <Box sx={{ mt: 2 }}>
+            <Typography 
+              variant="h5" 
+              component="h2" 
+              gutterBottom
+              sx={{ 
+                mb: 3,
+                fontWeight: 600,
+                color: 'text.primary'
+              }}
+            >
+              Potential Matches
+            </Typography>
+            <List sx={{ p: 0 }}>
+              {results.map((trial) => (
+                <Card 
+                  key={trial.trialId} 
+                  sx={{ 
+                    mb: 2,
+                    borderRadius: 2,
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: (theme) => theme.shadows[4]
+                    }
+                  }} 
+                  variant="outlined"
+                >
+                  <CardContent sx={{ p: 3 }}>
+                    <Typography variant="h6" component="div" gutterBottom>
+                      {trial.title} ({trial.trialId})
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 1 }}>
+                      <Chip
+                        label={trial.status}
+                        color={trial.status === 'Recruiting' ? 'success' : 'default'}
+                        size="small"
+                      />
+                      <Chip label={`Phase: ${trial.phase}`} variant="outlined" size="small" />
+                      <Chip label={`Condition: ${trial.condition}`} variant="outlined" size="small" />
+                    </Box>
+                    {trial.locations && trial.locations.length > 0 && (
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}
+                      >
                         <LocationOnIcon fontSize="small" /> Locations: {trial.locations.join(', ')}
-                    </Typography>
-                  )}
-                  {trial.contactInfo && (
-                     <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}>
-                         <ContactPhoneIcon fontSize="small" /> Contact: {trial.contactInfo}
-                     </Typography>
-                  )}
-                   {trial.detailsUrl && (
-                    <Typography variant="body2" sx={{ mb: 2 }}>
-                        <Link href={trial.detailsUrl} target="_blank" rel="noopener noreferrer" underline="hover">
-                            View Full Details on Registry
+                      </Typography>
+                    )}
+                    {trial.contactInfo && (
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}
+                      >
+                        <ContactPhoneIcon fontSize="small" /> Contact: {trial.contactInfo}
+                      </Typography>
+                    )}
+                    {trial.detailsUrl && (
+                      <Typography variant="body2" sx={{ mb: 2 }}>
+                        <Link
+                          href={trial.detailsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          underline="hover"
+                        >
+                          View Full Details on Registry
                         </Link>
-                    </Typography>
-                 )}
-
-                  {trial.matchRationale && trial.matchRationale.length > 0 && (
-                    <Box sx={{ mb: 1 }}>
+                      </Typography>
+                    )}
+                    {trial.matchRationale && trial.matchRationale.length > 0 && (
+                      <Box sx={{ mb: 1 }}>
                         <Typography variant="subtitle2">Match Rationale:</Typography>
                         <List dense disablePadding>
-                            {trial.matchRationale.map((reason, index) => (
-                            <ListItem key={`rationale-${index}`} disableGutters sx={{py: 0.2}}>
-                                <ListItemIcon sx={{ minWidth: 32 }}>
-                                    <CheckCircleOutlineIcon color="success" fontSize="small" />
-                                </ListItemIcon>
-                                <ListItemText primary={reason} primaryTypographyProps={{ variant: 'body2' }} />
+                          {trial.matchRationale.map((reason, index) => (
+                            <ListItem key={`rationale-${index}`} disableGutters sx={{ py: 0.2 }}>
+                              <ListItemIcon sx={{ minWidth: 32 }}>
+                                <CheckCircleOutlineIcon color="success" fontSize="small" />
+                              </ListItemIcon>
+                              <ListItemText
+                                primary={reason}
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
                             </ListItem>
-                            ))}
+                          ))}
                         </List>
-                    </Box>
-                  )}
-
-                  {trial.flags && trial.flags.length > 0 && (
-                     <Box>
+                      </Box>
+                    )}
+                    {trial.flags && trial.flags.length > 0 && (
+                      <Box>
                         <Typography variant="subtitle2">Flags / Potential Issues:</Typography>
-                         <List dense disablePadding>
-                            {trial.flags.map((flag, index) => (
-                            <ListItem key={`flag-${index}`} disableGutters sx={{py: 0.2}}>
-                                <ListItemIcon sx={{ minWidth: 32 }}>
-                                    <WarningAmberIcon color="warning" fontSize="small" />
-                                </ListItemIcon>
-                                <ListItemText primary={flag} primaryTypographyProps={{ variant: 'body2' }} />
+                        <List dense disablePadding>
+                          {trial.flags.map((flag, index) => (
+                            <ListItem key={`flag-${index}`} disableGutters sx={{ py: 0.2 }}>
+                              <ListItemIcon sx={{ minWidth: 32 }}>
+                                <WarningAmberIcon color="warning" fontSize="small" />
+                              </ListItemIcon>
+                              <ListItemText
+                                primary={flag}
+                                primaryTypographyProps={{ variant: 'body2' }}
+                              />
                             </ListItem>
-                            ))}
+                          ))}
                         </List>
-                    </Box>
-                  )}
-
-                </CardContent>
-              </Card>
-            ))}
-          </List>
-        </Box>
-      )}
-    </Box>
+                      </Box>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </List>
+          </Box>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 

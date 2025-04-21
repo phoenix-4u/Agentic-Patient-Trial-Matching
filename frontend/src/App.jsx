@@ -56,7 +56,17 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ flexGrow: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Box 
+        sx={{ 
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          width: '100vw',
+          margin: 0,
+          padding: 0,
+          overflow: 'hidden'
+        }}
+      >
         <AppBar position="sticky" elevation={0}>
           <Toolbar>
             <Typography 
@@ -81,22 +91,26 @@ function App() {
           </Toolbar>
         </AppBar>
         
-        <MotionContainer 
-          component="main" 
-          maxWidth="lg"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          sx={{ 
-            mt: 4, 
-            mb: 4, 
+        <Box
+          sx={{
             flex: 1,
             display: 'flex',
-            flexDirection: 'column'
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            padding: 3
           }}
         >
-          <ClinicalTrialMatcher />
-        </MotionContainer>
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: 800,
+              margin: '0 auto'
+            }}
+          >
+            <ClinicalTrialMatcher />
+          </Box>
+        </Box>
       </Box>
     </ThemeProvider>
   );
