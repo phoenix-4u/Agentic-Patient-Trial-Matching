@@ -70,15 +70,12 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 
 ## 🏗️ Architecture Overview
 
-
-## 🏗️ Architecture Overview
-
-
+<-- Make sure this line is completely blank -->
 ```mermaid
 graph LR
     %% Subgraph definition for the Frontend
     subgraph "User Browser"
-        A[React Frontend (MUI/Vite)]; %% Node definition
+        A["React Frontend - MUI/Vite"]; %% Simplified and quoted node text
     end %% End of User Browser subgraph
 
     %% Subgraph definition for the Backend
