@@ -29,7 +29,7 @@ This project demonstrates a modern web application leveraging AI agents (orchest
 *   **✅ Clear Match Rationale:** Shows *why* the AI suggested a specific trial based on key criteria.
 *   **⚠️ Flags Potential Issues:** Highlights uncertainties or potential exclusion criteria identified by the AI, prompting further clinician review.
 *   **🔗 Direct Links:** Provides easy access to full trial details on external registries (e.g., ClinicalTrials.gov).
-*   ** M** **ock Data Simulation:** Uses predefined mock patient and trial data for demonstration purposes, allowing exploration without real PHI or complex setup.
+*   **🛠️ Mock Data Simulation:** Uses predefined mock patient and trial data for demonstration purposes, allowing exploration without real PHI or complex setup.
 *   **🔄 Clear Status Indicators:** Provides user feedback during searching (loading spinners) and displays informative messages for errors or "no matches found" scenarios.
 
 ---
