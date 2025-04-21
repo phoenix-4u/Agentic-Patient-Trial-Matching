@@ -70,10 +70,6 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 
 ## 🏗️ Architecture Overview
 
-The system follows a standard frontend-backend separation:
-
-```mermaid
-## 🏗️ Architecture Overview
 
 ```mermaid
 graph LR
@@ -108,7 +104,7 @@ graph LR
     F -- Returns Results --> C
     C -- Formats --> B
     B -- HTTP Response --> A
-
+```
 
 (Based on the high-level design discussion)
 
