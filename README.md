@@ -272,14 +272,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) f
 
 ---
 
-*(Optional Section - Remove or keep as needed)*
-
-**Before Committing:**
-
-1.  **Create `docs/app-demo.gif`:** Take a good screen recording of your app working and convert it to an animated GIF. Place it in a `docs` folder in your project root.
-2.  **Create `LICENSE.md`:** Go to choosealicense.com or grab the standard MIT license text and put it in a file named `LICENSE.md` in the project root.
-3.  **Review Placeholders:** Make sure you replaced `<your-repo-url>` and `<your-repo-name>` if needed.
-4.  **Verify Commands:** Double-check the setup and run commands match your project structure exactly.
-5.  **Push to GitHub:** Add, commit, and push the `README.md`, `LICENSE.md`, and `docs` folder (with the GIF) to your repository.
-
 
