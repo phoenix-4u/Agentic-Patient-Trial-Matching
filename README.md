@@ -75,8 +75,8 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 graph LR
     %% Subgraph definition for the Frontend
     subgraph "User Browser"
-        A["React Frontend - MUI/Vite"]; %% Simplified and quoted node text
-    end %% End of User Browser subgraph
+        A["React Frontend - MUI/Vite"];
+    end
 
     %% Subgraph definition for the Backend
     subgraph "Backend Service (Python/FastAPI)"
@@ -85,14 +85,14 @@ graph LR
         D[Patient Data Agent (Mock)];
         E[Trial Discovery Agent (Mock)];
         F[Matching Agent (Langchain - Mock)];
-    end %% End of Backend Service subgraph
+    end
 
     %% Subgraph definition for External Systems
     subgraph "External Systems (Conceptual/Mocked)"
         G[Mock EHR Data];
         H[Mock Trial Database];
         I[LLM API];
-    end %% End of External Systems subgraph
+    end
 
     %% Define ALL links AFTER ALL subgraphs are closed
     A -- HTTP API Call --> B;
