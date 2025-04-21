@@ -70,7 +70,7 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 
 ## 🏗️ Architecture Overview
 
-<-- Make sure this line is completely blank -->
+
 ```mermaid
 graph LR
     %% Subgraph definition for the Frontend
