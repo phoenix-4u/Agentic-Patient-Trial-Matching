@@ -33,7 +33,7 @@ This document outlines the high-level design for an AI-powered Clinical Trial Ma
 ```mermaid
 graph LR
     subgraph "Clinical Workflow System "
-        A[Clinician UI] --> B React Frontend Component;
+        A[Clinician UI] --> B[React Frontend Component];
     end
 
     subgraph "AI Trial Matching Service Backend"
