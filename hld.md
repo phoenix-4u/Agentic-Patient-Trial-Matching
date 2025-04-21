@@ -32,27 +32,27 @@ This document outlines the high-level design for an AI-powered Clinical Trial Ma
 
 ```mermaid
 graph LR
-    subgraph "Clinical Workflow System (e.g., EHR)"
-        A[Clinician UI] --> B(React Frontend Component);
+    subgraph "Clinical Workflow System "
+        A[Clinician UI] --> B[React Frontend Component];
     end
 
-    subgraph "AI Trial Matching Service (Backend)"
-        C[Backend API Gateway (Python: FastAPI/Flask)];
-        D[AI Orchestration Layer (Python/Langchain)];
+    subgraph "AI Trial Matching Service Backend"
+        C[Backend API Gateway Python: FastAPI Flask];
+        D[AI Orchestration Layer PythonLangchain];
         E[Patient Data Agent];
         F[Trial Discovery Agent];
         G[Matching & Eligibility Agent];
-        H{Cache (Optional: Redis/Memcached)};
+        H{Cache Optional: Redis Memcached};
     end
 
     subgraph "External Systems"
-        I[EHR/Patient Data Store (API/DB)];
+        I[EHRPatient Data Store API DB];
         J[ClinicalTrials.gov API];
-        K[Other Trial Databases (API/DB)];
-        L[LLM Provider (e.g., OpenAI, Anthropic, Private)];
+        K[Other Trial Databases API DB];
+        L[LLM Provider];
     end
 
-    B -- 1. Initiate Search (PatientID) --> C;
+    B -- 1. Initiate Search PatientID --> C;
     C -- 2. Request Patient Data --> E;
     E -- 3. Fetch Data --> I;
     I -- 4. Return Patient Data --> E;
@@ -63,14 +63,14 @@ graph LR
     J -- 9. Trial List --> F;
     K -- 10. Trial List --> F;
     F -- 11. Potential Trials & Protocols --> D;
-    D -- 12. Request Matching (Profile + Trials) --> G;
-    G -- 13. Parse/Analyze Protocols (using LLM) --> L;
+    D -- 12. Request Matching Profile and Trials --> G;
+    G -- 13. Parse Analyze Protocols using LLM --> L;
     L -- 14. Analysis Results --> G;
     G -- 15. Perform Matching Logic --> D;
-    D -- 16. Check/Store/Retrieve Cache --> H;
-    H -- 17. Cached Data (Optional) --> D;
-    D -- 18. Formatted Results/Status --> C;
-    C -- 19. Results/Status Response --> B;
+    D -- 16. Check or Store or Retrieve Cache --> H;
+    H -- 17. Cached Data - Optional --> D;
+    D -- 18. Formatted Results or Status --> C;
+    C -- 19. Results or Status Response --> B;
 
     %% Styling
     style A fill:#f9f,stroke:#333,stroke-width:2px;
