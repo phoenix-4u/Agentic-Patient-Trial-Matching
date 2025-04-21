@@ -77,7 +77,7 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 graph LR
     %% Define Nodes within Subgraphs first
     subgraph "User Browser"
-        A[React Frontend (MUI Vite)]
+        A[React Frontend MUI Vite]
     end
 
     subgraph "Backend Service - Python FastAPI"
