@@ -73,39 +73,36 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 
 ```mermaid
 graph LR
-    %% Subgraph definition for the Frontend
     subgraph "User Browser"
-        A["React Frontend - MUI/Vite"];
+        A["React Frontend - MUI/Vite"]
     end
 
-    %% Subgraph definition for the Backend
     subgraph "Backend Service (Python/FastAPI)"
-        B[API Gateway];
-        C[Orchestrator];
-        D[Patient Data Agent (Mock)];
-        E[Trial Discovery Agent (Mock)];
-        F[Matching Agent (Langchain - Mock)];
+        B[API Gateway]
+        C[Orchestrator]
+        D[Patient Data Agent (Mock)]
+        E[Trial Discovery Agent (Mock)]
+        F[Matching Agent (Langchain - Mock)]
     end
 
-    %% Subgraph definition for External Systems
     subgraph "External Systems (Conceptual/Mocked)"
-        G[Mock EHR Data];
-        H[Mock Trial Database];
-        I[LLM API];
+        G[Mock EHR Data]
+        H[Mock Trial Database]
+        I[LLM API]
     end
 
-    %% Define ALL links AFTER ALL subgraphs are closed
-    A -- HTTP API Call --> B;
-    B -- Orchestrates --> C;
-    C -- Calls --> D;
-    C -- Calls --> E;
-    C -- Calls --> F;
-    D -- Reads --> G;
-    E -- Reads --> H;
-    F -- Interacts --> I;
-    F -- Returns Results --> C;
-    C -- Formats --> B;
-    B -- HTTP Response --> A;
+    %% Define links (semicolons removed)
+    A -- HTTP API Call --> B
+    B -- Orchestrates --> C
+    C -- Calls --> D
+    C -- Calls --> E
+    C -- Calls --> F
+    D -- Reads --> G
+    E -- Reads --> H
+    F -- Interacts --> I
+    F -- Returns Results --> C
+    C -- Formats --> B
+    B -- HTTP Response --> A
 
 (Based on the high-level design discussion)
 
