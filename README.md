@@ -73,36 +73,41 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 The system follows a standard frontend-backend separation:
 
 ```mermaid
+## 🏗️ Architecture Overview
+
+```mermaid
 graph LR
+    %% Define Nodes within Subgraphs first
     subgraph "User Browser"
-        A[React Frontend (MUI/Vite)];
+        A[React Frontend (MUI/Vite)]
     end
 
     subgraph "Backend Service (Python/FastAPI)"
-        B[API Gateway];
-        C[Orchestrator];
-        D[Patient Data Agent (Mock)];
-        E[Trial Discovery Agent (Mock)];
-        F[Matching Agent (Langchain - Mock)];
+        B[API Gateway]
+        C[Orchestrator]
+        D[Patient Data Agent (Mock)]
+        E[Trial Discovery Agent (Mock)]
+        F[Matching Agent (Langchain - Mock)]
     end
 
     subgraph "External Systems (Conceptual/Mocked)"
-        G[Mock EHR Data];
-        H[Mock Trial Database];
-        I[LLM API];
+        G[Mock EHR Data]
+        H[Mock Trial Database]
+        I[LLM API]
     end
 
-    A -- HTTP API Call --> B;
-    B -- Orchestrates --> C;
-    C -- Calls --> D;
-    C -- Calls --> E;
-    C -- Calls --> F;
-    D -- Reads --> G;
-    E -- Reads --> H;
-    F -- Interacts --> I;
-    F -- Returns Results --> C;
-    C -- Formats --> B;
-    B -- HTTP Response --> A;
+    %% Define Links between nodes AFTER all subgraphs are defined
+    A -- HTTP API Call --> B
+    B -- Orchestrates --> C
+    C -- Calls --> D
+    C -- Calls --> E
+    C -- Calls --> F
+    D -- Reads --> G
+    E -- Reads --> H
+    F -- Interacts --> I
+    F -- Returns Results --> C
+    C -- Formats --> B
+    B -- HTTP Response --> A
 
 
 (Based on the high-level design discussion)
