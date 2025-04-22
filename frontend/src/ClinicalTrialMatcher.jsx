@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { logger } from './utils/logger';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -32,18 +33,21 @@ function ClinicalTrialMatcher() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!patientId.trim()) {
+      logger.warn('Empty patient ID submitted');
       setError('Please enter a Patient ID.');
       setResults(null);
       setMessage(null);
       return;
     }
 
+    logger.info(`Initiating trial search for patient ID: ${patientId}`);
     setIsLoading(true);
     setError(null);
     setResults(null);
     setMessage(null);
 
     try {
+      logger.debug(`Making API request to ${API_URL}/api/v1/trials/find`);
       const response = await fetch(`${API_URL}/api/v1/trials/find`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -55,27 +59,36 @@ function ClinicalTrialMatcher() {
         try {
           const errorData = await response.json();
           errorDetail = errorData.detail || errorDetail;
-        } catch (parseError) {}
+        } catch (parseError) {
+          logger.error('Failed to parse error response', parseError);
+        }
         throw new Error(errorDetail);
       }
 
       const data = await response.json();
+      logger.debug('Received response:', data);
 
       if (data.status === 'success') {
+        logger.info(`Found ${data.matches?.length || 0} matches for patient ${patientId}`);
         setResults(data.matches);
-        if (data.matches.length === 0) {
+        if (data.matches?.length === 0) {
+          logger.info('No trials matched the criteria');
           setMessage('Search successful, but no trials matched the criteria.');
         }
       } else if (data.status === 'no_matches_found') {
+        logger.info('No matches found response received');
         setMessage(data.message || 'No suitable recruiting trials found.');
         setResults([]);
       } else {
+        logger.warn(`Unexpected status received: ${data.status}`);
         throw new Error(data.message || 'Received an unexpected status from server.');
       }
     } catch (err) {
+      logger.error('Error during trial search:', err);
       setError(err.message || 'Failed to fetch trial data. Check connection or contact support.');
     } finally {
       setIsLoading(false);
+      logger.debug('Search request completed');
     }
   };
 

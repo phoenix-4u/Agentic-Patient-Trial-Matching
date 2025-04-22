@@ -4,6 +4,14 @@ from datetime import datetime, timezone
 from typing import List, Optional, Tuple, Union
 
 from models import PatientProfile, TrialMatch
+from logger import setup_logger
+
+# Setup logger for services
+logger = setup_logger(
+    "trial_matcher.services",
+    log_level="INFO",
+    log_file="logs/services.log"
+)
 
 # --- Mock Data ---
 
@@ -27,7 +35,7 @@ MOCK_TRIALS_DB = [
 
 async def fetch_patient_profile(patient_id: str) -> Optional[PatientProfile]:
     """MOCK: Simulates fetching patient data from EHR."""
-    print(f"MOCK [PatientDataAgent]: Fetching profile for {patient_id}")
+    logger.debug(f"Fetching profile for {patient_id}")
     await asyncio.sleep(random.uniform(0.2, 0.8)) # Simulate network/DB delay
     if patient_id == "PATIENT_ERROR":
          raise ValueError("Simulated database connection error") # Simulate failure
@@ -35,14 +43,14 @@ async def fetch_patient_profile(patient_id: str) -> Optional[PatientProfile]:
 
 async def discover_trials(profile: PatientProfile) -> List[dict]:
     """MOCK: Simulates querying trial databases based on condition."""
-    print(f"MOCK [TrialDiscoveryAgent]: Discovering trials for condition '{profile.condition}'")
+    logger.debug(f"Discovering trials for condition '{profile.condition}'")
     await asyncio.sleep(random.uniform(0.5, 1.5)) # Simulate API/DB delay
     # Simple filtering based on condition (a real agent would be more complex)
     relevant_trials = [
         trial for trial in MOCK_TRIALS_DB
         if trial["condition"] == profile.condition and trial["status"] == "Recruiting"
     ]
-    print(f"MOCK [TrialDiscoveryAgent]: Found {len(relevant_trials)} potentially relevant recruiting trials.")
+    logger.info(f"Found {len(relevant_trials)} potentially relevant recruiting trials.")
     return relevant_trials
 
 async def perform_matching(profile: PatientProfile, trials: List[dict]) -> List[TrialMatch]:
@@ -50,11 +58,11 @@ async def perform_matching(profile: PatientProfile, trials: List[dict]) -> List[
     MOCK: Simulates the complex Langchain/LLM matching process.
     Uses simple rules instead of real AI analysis.
     """
-    print(f"MOCK [MatchingAgent]: Performing matching for {profile.patientId} against {len(trials)} trials.")
+    logger.debug(f"Performing matching for {profile.patientId} against {len(trials)} trials.")
     matches = []
     for trial in trials:
         await asyncio.sleep(random.uniform(0.3, 1.0)) # Simulate LLM/analysis delay per trial
-        print(f"MOCK [MatchingAgent]: Analyzing trial {trial['id']}...")
+        logger.debug(f"Analyzing trial {trial['id']}...")
 
         rationale = []
         flags = []
@@ -110,7 +118,7 @@ async def perform_matching(profile: PatientProfile, trials: List[dict]) -> List[
     # Sort matches by score descending
     matches.sort(key=lambda m: m.rank_score if m.rank_score else 0, reverse=True)
 
-    print(f"MOCK [MatchingAgent]: Completed matching. Found {len(matches)} potential matches.")
+    logger.info(f"Completed matching. Found {len(matches)} potential matches.")
     return matches
 
 
@@ -121,23 +129,27 @@ async def run_trial_matching_pipeline(patient_id: str) -> Union[List[TrialMatch]
     MOCK: Orchestrates the simulated agent workflow.
     Returns list of matches or an error string/code.
     """
+    logger.debug(f"Starting trial matching pipeline for patient: {patient_id}")
     try:
         # 1. Get Patient Profile
         profile = await fetch_patient_profile(patient_id)
         if not profile:
+            logger.warning(f"Patient not found: {patient_id}")
             return "PATIENT_NOT_FOUND" # Specific error code
 
         # 2. Discover Trials
         potential_trials = await discover_trials(profile)
         if not potential_trials:
+            logger.info(f"No trials found for patient: {patient_id}")
             return [] # No trials found for this condition
 
         # 3. Perform Matching (Simulated AI)
         matched_trials = await perform_matching(profile, potential_trials)
 
+        logger.info(f"Trial matching pipeline completed for patient: {patient_id}")
         return matched_trials
 
     except Exception as e:
-        print(f"ERROR in pipeline for {patient_id}: {e}")
+        logger.error(f"Error in pipeline for {patient_id}: {e}", exc_info=True)
         # In real app, log exception details securely
         return "PIPELINE_ERROR" # Generic error code

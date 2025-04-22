@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import './App.css';
 import ClinicalTrialMatcher from './ClinicalTrialMatcher.jsx';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -13,14 +13,24 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { motion } from 'framer-motion';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { logger } from './utils/logger';
 
 function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [mode, setMode] = useState(prefersDarkMode ? 'dark' : 'light');
 
+  useEffect(() => {
+    logger.info(`Application initialized with ${mode} mode`);
+    // Set initial log level based on environment
+    const logLevel = import.meta.env.MODE === 'development' ? 'DEBUG' : 'INFO';
+    logger.setLogLevel(logLevel);
+    logger.debug('Log level configured:', logLevel);
+  }, []);
+
   const theme = useMemo(
-    () =>
-      createTheme({
+    () => {
+      logger.debug(`Creating theme with mode: ${mode}`);
+      return createTheme({
         palette: {
           mode,
           primary: {
@@ -47,9 +57,16 @@ function App() {
             },
           },
         },
-      }),
+      });
+    },
     [mode],
   );
+
+  const handleThemeChange = () => {
+    const newMode = mode === 'light' ? 'dark' : 'light';
+    logger.info(`Theme changed to ${newMode} mode`);
+    setMode(newMode);
+  };
 
   const MotionContainer = motion(Container);
 
@@ -83,8 +100,9 @@ function App() {
               AI Clinical Trial Matching
             </Typography>
             <IconButton 
-              onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+              onClick={handleThemeChange}
               color="inherit"
+              aria-label={`Switch to ${mode === 'light' ? 'dark' : 'light'} mode`}
             >
               {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>

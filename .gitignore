@@ -1,28 +1,34 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Environment variables
 .env
-.venv
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-*.db
-*.sqlite3
-*.log
+*$py.class
+.Python
+env/
+.venv/
+venv/
+
+# Build outputs
+dist/
+build/
 *.egg-info/
-*.egg
-*.zip
-*.tar.gz
-*.tar.bz2
-*.tar.xz
-*.tar.lzma
-*.tar.Z
-*.tar.lz
-*.tar.lzo
-*.tar.lz4
-*.tar.lzop
-*.tar.lzma2
-*.tar.lz4c
-*.tar.lz4f
-*.tar.lzop2
-.idx
-*.nix
-.vscode
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
