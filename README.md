@@ -5,7 +5,7 @@
 
 **Accelerate clinical trial recruitment by intelligently matching patients to relevant studies using agentic AI.**
 
-This project demonstrates a modern web application leveraging AI agents (orchestrated via Langchain) to automatically parse patient data (mocked) and complex clinical trial protocols, presenting potential matches directly to clinicians within a user-friendly interface.
+This project demonstrates a modern web application leveraging AI agents (orchestrated via agno) to automatically parse patient data (mocked) and complex clinical trial protocols, presenting potential matches directly to clinicians within a user-friendly interface.
 
 ---
 
