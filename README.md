@@ -20,10 +20,10 @@ This project demonstrates a modern web application leveraging AI agents (orchest
 
 ## 🌟 Key Features
 
-*   **🤖 Agentic AI Matching:** Utilizes a backend powered by Python, FastAPI, and Langchain to orchestrate agents that:
+*   **🤖 Agentic AI Matching:** Utilizes a backend powered by Python, FastAPI, and Agno to orchestrate agents that:
     *   Simulate fetching and processing patient profiles.
     *   Simulate querying external trial databases (like ClinicalTrials.gov).
-    *   Employ LLMs (mocked/conceptualized) via Langchain to analyze complex eligibility criteria against patient data.
+    *   Employ LLMs (mocked/conceptualized) via Agno to analyze complex eligibility criteria against patient data.
 *   **⚡ Fast & Responsive UI:** Modern frontend built with React (using Vite) and Material UI (MUI) for a professional, cutting-edge look and feel.
 *   **📋 Ranked & Explained Results:** Displays potential trial matches ranked by relevance.
 *   **✅ Clear Match Rationale:** Shows *why* the AI suggested a specific trial based on key criteria.
