@@ -60,7 +60,7 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
     *   [Uvicorn](https://www.uvicorn.org/) (ASGI Server)
     *   [Pydantic](https://pydantic-docs.helpmanual.io/) (Data Validation)
 *   **AI / Orchestration:**
-    *   [Langchain](https://python.langchain.com/) (Framework for LLM applications & agents)
+    *   [Agno](https://github.com/agno-agi/agno) (Framework for LLM applications & agents)
     *   *(Dependency on a Large Language Model like OpenAI GPT-x, Anthropic Claude, etc. - conceptualized/mocked in this demo)*
 *   **External Interaction (Simulated/Conceptual):**
     *   EHR/Patient Data Source API/DB (Mocked)
