@@ -242,7 +242,6 @@ The primary backend endpoint used by the frontend:
 **🔮 Future Work / Roadmap**
 
 *   [ ] **Real EHR Integration:** Replace mock data fetching with secure, compliant integration with a real (or sandbox) EHR system.
-*   [ ] **Real LLM Agents:** Implement the full Langchain agent logic in `services.py` using actual LLM calls, robust prompt engineering, and response parsing.
 *   [ ] **Real Trial Data:** Integrate directly with the live ClinicalTrials.gov API (or other sources) instead of mock data.
 *   [ ] **Advanced Filtering:** Add UI options for filtering trials by location, phase, specific criteria, etc.
 *   [ ] **Vector Database:** Implement semantic search for criteria matching using vector embeddings for improved accuracy.
