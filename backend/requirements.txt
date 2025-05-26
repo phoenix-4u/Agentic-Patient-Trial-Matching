@@ -4,5 +4,10 @@ pydantic>=1.10.0
 python-dotenv>=0.20.0
 agno
 openai
+pymupdf
+docx2pdf
+langchain_core
+langchain_openai
+Pillow
 # Add langchain, openai, etc. if building real agents
 # requests # if calling real external APIs
