@@ -5,7 +5,7 @@
 
 **Accelerate clinical trial recruitment by intelligently matching patients to relevant studies using agentic AI.**
 
-This project demonstrates a modern web application leveraging AI agents (orchestrated via Langchain) to automatically parse patient data (mocked) and complex clinical trial protocols, presenting potential matches directly to clinicians within a user-friendly interface.
+This project demonstrates a modern web application leveraging AI agents (orchestrated via agno) to automatically parse patient data (mocked) and complex clinical trial protocols, presenting potential matches directly to clinicians within a user-friendly interface.
 
 ---
 
@@ -20,10 +20,10 @@ This project demonstrates a modern web application leveraging AI agents (orchest
 
 ## 🌟 Key Features
 
-*   **🤖 Agentic AI Matching:** Utilizes a backend powered by Python, FastAPI, and Langchain to orchestrate agents that:
+*   **🤖 Agentic AI Matching:** Utilizes a backend powered by Python, FastAPI, and Agno to orchestrate agents that:
     *   Simulate fetching and processing patient profiles.
     *   Simulate querying external trial databases (like ClinicalTrials.gov).
-    *   Employ LLMs (mocked/conceptualized) via Langchain to analyze complex eligibility criteria against patient data.
+    *   Employ LLMs (mocked/conceptualized) via Agno to analyze complex eligibility criteria against patient data.
 *   **⚡ Fast & Responsive UI:** Modern frontend built with React (using Vite) and Material UI (MUI) for a professional, cutting-edge look and feel.
 *   **📋 Ranked & Explained Results:** Displays potential trial matches ranked by relevance.
 *   **✅ Clear Match Rationale:** Shows *why* the AI suggested a specific trial based on key criteria.
@@ -60,7 +60,7 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
     *   [Uvicorn](https://www.uvicorn.org/) (ASGI Server)
     *   [Pydantic](https://pydantic-docs.helpmanual.io/) (Data Validation)
 *   **AI / Orchestration:**
-    *   [Langchain](https://python.langchain.com/) (Framework for LLM applications & agents)
+    *   [Agno](https://github.com/agno-agi/agno) (Framework for LLM applications & agents)
     *   *(Dependency on a Large Language Model like OpenAI GPT-x, Anthropic Claude, etc. - conceptualized/mocked in this demo)*
 *   **External Interaction (Simulated/Conceptual):**
     *   EHR/Patient Data Source API/DB (Mocked)
@@ -242,7 +242,6 @@ The primary backend endpoint used by the frontend:
 **🔮 Future Work / Roadmap**
 
 *   [ ] **Real EHR Integration:** Replace mock data fetching with secure, compliant integration with a real (or sandbox) EHR system.
-*   [ ] **Real LLM Agents:** Implement the full Langchain agent logic in `services.py` using actual LLM calls, robust prompt engineering, and response parsing.
 *   [ ] **Real Trial Data:** Integrate directly with the live ClinicalTrials.gov API (or other sources) instead of mock data.
 *   [ ] **Advanced Filtering:** Add UI options for filtering trials by location, phase, specific criteria, etc.
 *   [ ] **Vector Database:** Implement semantic search for criteria matching using vector embeddings for improved accuracy.
