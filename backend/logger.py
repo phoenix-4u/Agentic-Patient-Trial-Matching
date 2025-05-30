@@ -26,6 +26,13 @@ def setup_logger(
 
     # Create logger
     logger = logging.getLogger(name)
+
+    if logger.hasHandlers():
+        # Option 1: Clear existing handlers and reconfigure (if you want fresh config)
+        # logger.handlers.clear()
+        # Option 2: Just return if already configured (if first setup is canonical)
+        return logger
+    
     logger.setLevel(getattr(logging, log_level.upper()))
 
     # Create formatters

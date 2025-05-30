@@ -202,7 +202,7 @@ function ClinicalTrialMatcher() {
             <List sx={{ p: 0 }}>
               {results.map((trial) => (
                 <Card 
-                  key={trial.trialId} 
+                  key={trial.id} 
                   sx={{ 
                     mb: 2,
                     borderRadius: 2,
@@ -216,7 +216,7 @@ function ClinicalTrialMatcher() {
                 >
                   <CardContent sx={{ p: 3 }}>
                     <Typography variant="h6" component="div" gutterBottom>
-                      {trial.title} ({trial.trialId})
+                      {trial.title} ({trial.id})
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 1 }}>
                       <Chip
