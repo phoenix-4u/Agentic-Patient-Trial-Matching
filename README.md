@@ -68,33 +68,6 @@ Finding and enrolling suitable patients is a major bottleneck in clinical resear
 
 ---
 
-## 🔧 Environment Setup
-
-### Backend Configuration
-
-1. Navigate to the `backend` directory
-2. Create a `.env` file with the following configuration:
-
-```env
-# Logging Configuration
-LOG_LEVEL=INFO
-LOG_FILE=logs/trial_matcher.log
-
-# Azure OpenAI Configuration
-AZURE_OPENAI_API_KEY=xxxx                    # Your Azure OpenAI API key
-AZURE_OPENAI_API_TYPE=azure                  # API type (keep as azure)
-AZURE_OPENAI_ENDPOINT=xxxx                   # Your Azure OpenAI endpoint URL
-
-# Model Configuration
-AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o         # Your Azure OpenAI deployment name
-OPENAI_API_VERSION=2024-05-01-preview       # API version to use
-```
-
-Replace the `xxxx` values with your actual Azure OpenAI credentials. You can get these from your Azure OpenAI service portal.
-
-> **🔐 Security Note:** Never commit the actual `.env` file with real credentials to version control. The `.env` file is included in `.gitignore` by default.
-
----
 
 ## 🏗️ Architecture Overview
 
@@ -259,11 +232,32 @@ The primary backend endpoint used by the frontend:
 
 ---
 
-**🔧 Configuration**
 
-*   **Backend (`backend/.env`):** Primarily for API keys if using real LLMs (e.g., `OPENAI_API_KEY`). Not strictly required for the current mock setup.
-*   **Frontend (`frontend/.env`):**
-    *   `VITE_API_URL`: The URL where the backend FastAPI server is running (defaults to `http://localhost:8000` in the code if not set).
+## 🔧 Environment Setup
+
+### Backend Configuration
+
+1. Navigate to the `backend` directory
+2. Create a `.env` file with the following configuration:
+
+```env
+# Logging Configuration
+LOG_LEVEL=INFO
+LOG_FILE=logs/trial_matcher.log
+
+# Azure OpenAI Configuration
+AZURE_OPENAI_API_KEY=xxxx                    # Your Azure OpenAI API key
+AZURE_OPENAI_API_TYPE=azure                  # API type (keep as azure)
+AZURE_OPENAI_ENDPOINT=xxxx                   # Your Azure OpenAI endpoint URL
+
+# Model Configuration
+AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o         # Your Azure OpenAI deployment name
+OPENAI_API_VERSION=2024-05-01-preview       # API version to use
+```
+
+Replace the `xxxx` values with your actual Azure OpenAI credentials. You can get these from your Azure OpenAI service portal.
+
+> **🔐 Security Note:** Never commit the actual `.env` file with real credentials to version control. The `.env` file is included in `.gitignore` by default.
 
 ---
 
