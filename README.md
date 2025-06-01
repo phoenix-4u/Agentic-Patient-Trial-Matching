@@ -11,10 +11,9 @@ This project demonstrates a modern web application leveraging AI agents (orchest
 
 ## ✨ Demo ✨
 
-**(Replace this section with a high-quality screenshot or, even better, an animated GIF of the application in action!)**
+https://github.com/user-attachments/assets/763314d6-fbc6-45f6-899e-4522659febe0
 
-![App Screenshot/GIF](docs/app-demo.gif)
-*Caption: Example showing patient ID entry, loading state, and ranked trial matches with rationale.*
+[[Watch the video in full HD on youtube]](https://www.youtube.com/watch?v=GJOKZyBOF00)
 
 ---
 
